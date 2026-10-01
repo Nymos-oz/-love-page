@@ -442,6 +442,29 @@ button[disabled] { opacity: .45; cursor: default; }
   backdrop-filter: blur(18px);
 }
 
+.soundtrack-progress {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 9px;
+  color: var(--soft);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.soundtrack-progress input {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  accent-color: var(--acc);
+}
+
+.soundtrack input:disabled {
+  opacity: .5;
+}
+
 .soundtrack-toggle {
   display: inline-flex;
   align-items: center;
@@ -1155,6 +1178,7 @@ button[disabled] { opacity: .45; cursor: default; }
     gap: 9px;
     padding: 9px;
   }
+  .soundtrack-progress { gap: 7px; }
   .soundtrack-toggle { width: 44px; padding: 0; font-size: 0; }
   .soundtrack-toggle .play-icon { font-size: 16px; }
   .soundtrack-controls label { display: none; }
@@ -1521,8 +1545,13 @@ button[disabled] { opacity: .45; cursor: default; }
     <label for="musicVolume" data-t="music_volume"></label>
     <input id="musicVolume" type="range" min="0" max="1" step="0.01" value="0.28" data-t-aria-label="volume_label" aria-label="Âm lượng nhạc">
   </div>
+  <div class="soundtrack-progress">
+    <span id="musicCurrentTime">0:00</span>
+    <input id="musicSeek" type="range" min="0" max="0" step="0.1" value="0" data-t-aria-label="seek_label" aria-label="Перемотка музыки" disabled>
+    <span id="musicDuration">--:--</span>
+  </div>
 </aside>
-<audio id="backgroundMusic" src="assets/love-theme.wav" preload="metadata" loop></audio>
+<audio id="backgroundMusic" src="assets/love-theme.wav" preload="metadata" loop playsinline></audio>
 <dialog id="photoViewer" aria-labelledby="photoViewerCaption">
   <img id="photoViewerImage" alt="">
   <figcaption id="photoViewerCaption"></figcaption>
@@ -1539,7 +1568,7 @@ vi:{
  gallery_tag:"Ký ức của chúng ta", gallery_title:"Gần nhau qua từng khung hình", gallery_hint:"Nhấn vào một bức ảnh để xem lớn hơn.",
  gallery_caption_night:"Hai thế giới, một tình yêu dưới bầu trời đêm.", gallery_caption_portrait:"Vẻ đẹp khiến anh muốn ngắm nhìn mãi.", gallery_caption_circle:"Dù xa nhau, trái tim mình vẫn gần bên.",
  photo_open:"Mở ảnh lớn", close_photo:"Đóng ảnh",
- music_play:"Phát nhạc", music_pause:"Tạm dừng", music_player_label:"Âm nhạc của chúng ta", soundtrack_title:"Bài nhạc của chúng ta", soundtrack_idle:"Nhấn phát để nghe giai điệu dịu dàng dành cho hai đứa mình.", soundtrack_starting:"Đang mở nhạc…", soundtrack_playing:"Đang phát — nghe cùng anh nhé.", soundtrack_paused:"Nhạc đang tạm dừng.", soundtrack_error:"Không mở được nhạc. Hãy thử tải lại trang.", music_volume:"Âm lượng", volume_label:"Âm lượng nhạc",
+ music_play:"Phát nhạc", music_pause:"Tạm dừng", music_player_label:"Âm nhạc của chúng ta", soundtrack_title:"Bài nhạc của chúng ta", soundtrack_idle:"Nhấn phát để nghe giai điệu dịu dàng dành cho hai đứa mình.", soundtrack_starting:"Đang mở nhạc…", soundtrack_playing:"Đang phát — nghe cùng anh nhé.", soundtrack_buffering:"Đang tải đoạn nhạc tiếp theo…", soundtrack_paused:"Nhạc đang tạm dừng.", soundtrack_error:"Không mở được nhạc. Hãy thử phát lại hoặc tải lại trang.", music_volume:"Âm lượng", volume_label:"Âm lượng nhạc", seek_label:"Tua nhạc",
  song_title:"Một bài hát nhỏ dành cho chúng ta", song_read:"Nghe lời bài hát", song_stop:"Dừng đọc", song_reading:"Đang đọc lời bài hát bằng tiếng Việt…", song_done:"Đã đọc xong lời bài hát.", song_no_voice:"Không tìm thấy giọng đọc tiếng Việt. Em vẫn có thể đọc lời bài hát ở trên.",
  song_lyrics:`Hai đất nước, chung một bầu trời,
 Tin nhắn của anh sưởi ấm đêm dài.
@@ -1591,7 +1620,7 @@ ru:{
  gallery_tag:"Наши воспоминания", gallery_title:"Ближе в каждом кадре", gallery_hint:"Нажми на фотографию, чтобы рассмотреть её поближе.",
  gallery_caption_night:"Два мира, одна любовь под ночным небом.", gallery_caption_portrait:"Красота, на которую хочется смотреть бесконечно.", gallery_caption_circle:"Даже вдали наши сердца рядом.",
  photo_open:"Открыть фото крупнее", close_photo:"Закрыть фото",
- music_play:"Включить музыку", music_pause:"Пауза", music_player_label:"Наша музыка", soundtrack_title:"Наша песня", soundtrack_idle:"Нажми на кнопку — и зазвучит нежная мелодия для нас двоих.", soundtrack_starting:"Загружаю музыку…", soundtrack_playing:"Музыка играет — слушай вместе со мной.", soundtrack_paused:"Музыка на паузе.", soundtrack_error:"Не удалось загрузить музыку. Попробуй обновить страницу.", music_volume:"Звук", volume_label:"Громкость музыки",
+ music_play:"Включить музыку", music_pause:"Пауза", music_player_label:"Наша музыка", soundtrack_title:"Наша песня", soundtrack_idle:"Нажми на кнопку — и зазвучит нежная мелодия для нас двоих.", soundtrack_starting:"Загружаю музыку…", soundtrack_playing:"Музыка играет — слушай вместе со мной.", soundtrack_buffering:"Загружаю следующий фрагмент…", soundtrack_paused:"Музыка на паузе.", soundtrack_error:"Не удалось открыть музыку. Нажми «Включить музыку» ещё раз или обнови страницу.", music_volume:"Звук", volume_label:"Громкость музыки", seek_label:"Перемотка музыки",
  song_title:"Наша маленькая песня", song_read:"Послушать текст", song_stop:"Остановить чтение", song_reading:"Читаю слова песни по-русски…", song_done:"Чтение песни завершено.", song_no_voice:"В браузере нет русского голоса. Текст песни всё равно доступен выше.",
  song_lyrics:`Между нами моря и города,
 Но твои слова согревают меня.
@@ -1643,7 +1672,7 @@ ru:{
 const $ = id => document.getElementById(id);
 let L = 'vi', shown = 1, msgKey = null; const opened = new Set(); let started = false, typingT = null;
 const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
-let musicPlaying = false, musicStarting = false, musicHasPlayed = false, musicStatusError = '';
+let musicPlaying = false, musicStarting = false, musicHasPlayed = false, musicBuffering = false, musicStatusError = '', musicSeeking = false;
 let lyricsSpeaking = false, lyricSpeechId = 0;
 
 function updateMusicControls(){
@@ -1655,7 +1684,8 @@ function updateMusicControls(){
   $('musicToggle').disabled = musicStarting;
   $('musicIcon').textContent = musicPlaying ? 'Ⅱ' : '▶';
   $('soundtrack').classList.toggle('is-playing', musicPlaying);
-  const statusKey = musicStarting ? 'soundtrack_starting' : musicPlaying ? 'soundtrack_playing' : musicHasPlayed ? 'soundtrack_paused' : 'soundtrack_idle';
+  $('soundtrack').classList.toggle('is-buffering', musicBuffering);
+  const statusKey = musicStarting ? 'soundtrack_starting' : musicPlaying && musicBuffering ? 'soundtrack_buffering' : musicPlaying ? 'soundtrack_playing' : musicHasPlayed ? 'soundtrack_paused' : 'soundtrack_idle';
   $('musicStatus').textContent = musicStatusError || t[statusKey];
 }
 
@@ -1686,17 +1716,51 @@ function render(){
 }
 
 const backgroundMusic = $('backgroundMusic');
-backgroundMusic.volume = Number($('musicVolume').value);
+const musicSeek = $('musicSeek');
+
+function formatMusicTime(seconds){
+  if (!Number.isFinite(seconds) || seconds < 0) return '--:--';
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = Math.floor(seconds % 60).toString().padStart(2, '0');
+  return `${minutes}:${remainingSeconds}`;
+}
+
+function updateMusicProgress(){
+  const duration = backgroundMusic.duration;
+  const durationAvailable = Number.isFinite(duration) && duration > 0;
+  const currentTime = musicSeeking ? Number(musicSeek.value) : backgroundMusic.currentTime;
+  musicSeek.disabled = !durationAvailable;
+  musicSeek.max = durationAvailable ? String(duration) : '0';
+  if (!musicSeeking) musicSeek.value = durationAvailable ? String(backgroundMusic.currentTime) : '0';
+  $('musicCurrentTime').textContent = formatMusicTime(currentTime);
+  $('musicDuration').textContent = formatMusicTime(duration);
+  musicSeek.setAttribute('aria-valuetext', `${formatMusicTime(currentTime)} / ${formatMusicTime(duration)}`);
+}
+
+function applyMusicVolume(){
+  const volume = Number($('musicVolume').value);
+  backgroundMusic.volume = lyricsSpeaking ? Math.min(volume, 0.08) : volume;
+}
 
 function setMusicPlaying(playing){
   musicPlaying = playing;
+  if (!playing) musicBuffering = false;
   if (playing) musicHasPlayed = true;
   updateMusicControls();
 }
 
 backgroundMusic.addEventListener('play', () => {
   musicStatusError = '';
+  musicBuffering = true;
   setMusicPlaying(true);
+});
+backgroundMusic.addEventListener('playing', () => {
+  musicBuffering = false;
+  setMusicPlaying(true);
+});
+backgroundMusic.addEventListener('waiting', () => {
+  musicBuffering = true;
+  updateMusicControls();
 });
 backgroundMusic.addEventListener('pause', () => setMusicPlaying(false));
 backgroundMusic.addEventListener('ended', () => setMusicPlaying(false));
@@ -1704,10 +1768,14 @@ backgroundMusic.addEventListener('error', () => {
   musicStatusError = T[L].soundtrack_error;
   setMusicPlaying(false);
 });
-backgroundMusic.addEventListener('loadeddata', () => {
+backgroundMusic.addEventListener('loadedmetadata', () => {
   musicStatusError = '';
+  updateMusicProgress();
   updateMusicControls();
 });
+backgroundMusic.addEventListener('durationchange', updateMusicProgress);
+backgroundMusic.addEventListener('timeupdate', updateMusicProgress);
+backgroundMusic.addEventListener('seeked', updateMusicProgress);
 
 async function startSoundtrack(){
   if (musicStarting || musicPlaying) return;
@@ -1715,6 +1783,7 @@ async function startSoundtrack(){
   musicStatusError = '';
   updateMusicControls();
   try {
+    if (backgroundMusic.error) backgroundMusic.load();
     await backgroundMusic.play();
   } catch (error) {
     console.error('Unable to play the soundtrack file:', error);
@@ -1734,9 +1803,23 @@ $('musicToggle').addEventListener('click', () => {
   if (musicPlaying) pauseSoundtrack();
   else startSoundtrack();
 });
-$('musicVolume').addEventListener('input', event => {
-  backgroundMusic.volume = Number(event.currentTarget.value);
+$('musicSeek').addEventListener('input', () => {
+  musicSeeking = true;
+  updateMusicProgress();
 });
+$('musicSeek').addEventListener('change', () => {
+  const duration = backgroundMusic.duration;
+  if (Number.isFinite(duration) && duration > 0) {
+    backgroundMusic.currentTime = Math.min(Number(musicSeek.value), duration);
+  }
+  musicSeeking = false;
+  updateMusicProgress();
+});
+$('musicVolume').addEventListener('input', event => {
+  applyMusicVolume();
+});
+applyMusicVolume();
+updateMusicProgress();
 $('readLyrics').addEventListener('click', async () => {
   if (!window.speechSynthesis || !window.SpeechSynthesisUtterance) {
     $('lyricsStatus').textContent = T[L].song_no_voice;
@@ -1759,25 +1842,25 @@ $('readLyrics').addEventListener('click', async () => {
   utterance.onend = () => {
     if (speechId !== lyricSpeechId) return;
     lyricsSpeaking = false;
-    backgroundMusic.volume = Number($('musicVolume').value);
+    applyMusicVolume();
     $('lyricsStatus').textContent = T[L].song_done;
     $('stopLyrics').hidden = true;
   };
   utterance.onerror = event => {
     if (speechId !== lyricSpeechId) return;
     lyricsSpeaking = false;
-    backgroundMusic.volume = Number($('musicVolume').value);
+    applyMusicVolume();
     $('lyricsStatus').textContent = event.error === 'canceled' || event.error === 'interrupted' ? '' : T[L].song_no_voice;
     $('stopLyrics').hidden = true;
   };
-  backgroundMusic.volume = Math.min(Number($('musicVolume').value), 0.08);
+  applyMusicVolume();
   window.speechSynthesis.speak(utterance);
 });
 $('stopLyrics').addEventListener('click', () => {
   lyricSpeechId++;
   window.speechSynthesis.cancel();
   lyricsSpeaking = false;
-  backgroundMusic.volume = Number($('musicVolume').value);
+  applyMusicVolume();
   $('lyricsStatus').textContent = '';
   $('stopLyrics').hidden = true;
 });
@@ -1842,7 +1925,7 @@ document.querySelectorAll('.langs button').forEach(b => b.onclick = () => {
     lyricSpeechId++;
     window.speechSynthesis.cancel();
     lyricsSpeaking = false;
-    backgroundMusic.volume = Number($('musicVolume').value);
+    applyMusicVolume();
     $('stopLyrics').hidden = true;
   }
   L = b.dataset.l;
